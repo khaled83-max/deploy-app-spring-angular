@@ -33,13 +33,13 @@ jobs:
 
     - name: build image spring 
       run: |
-        docker build -t ${{vars.DOCKER_USERNAME}}/spring-app /springboot/app
-        docker push ${{secrets.DOCKER_USERNAME}}/spring-app
+        docker build -t ${{vars.DOCKERHUB_USERNAME}}/spring-app /springboot/app
+        docker push ${{vars.DOCKERHUB_USERNAME}}/spring-app
 
     - name: build image angular 
       run: |
-        docker build -t ${{vars.DOCKER_USERNAME}}/angular-app /angular-app
-        docker push ${{secrets.DOCKER_USERNAME}}/angular-app
+        docker build -t ${{vars.DOCKERHUB_USERNAME}}/angular-app /angular-app
+        docker push ${{vars.DOCKERHUB_USERNAME}}/angular-app
 
     - name: Run docker compose 
       run: |
