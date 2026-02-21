@@ -20,7 +20,7 @@ jobs:
         cd springboot/app
         chmod +x mvnw
         ./mvnw clean package 
-        ./mvn clean verify 
+        ./mvnw clean verify 
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
