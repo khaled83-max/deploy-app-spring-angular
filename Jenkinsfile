@@ -22,8 +22,8 @@ pipeline {
       steps {
        dir("deploy-app-spring-angular/springboot/app"){
         sh "mvn clean package"
-        sh "sudo docker build -t nouran10/springboot-app . --no-cache"
-        sh "sudo docker push nouran10/springboot-app"
+        sh "docker build -t nouran10/springboot-app . --no-cache"
+        sh "docker push nouran10/springboot-app"
        }
       }
     }
