@@ -27,13 +27,13 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/springboot-backend:latest
 
 
-        - name: Builder l’image Docker du frontend
-          uses: docker/build-push-action@v5
-          with:
-            context: ./angular-app
-            push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/angular-frontend:latest
+      - name: Builder l’image Docker du frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./angular-app
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/angular-frontend:latest
 
 
-        - name: Lancer la commande docker compose
-          run: docker-compose up -d 
+      - name: Lancer la commande docker compose
+        run: docker-compose up -d 
