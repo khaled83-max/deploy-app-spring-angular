@@ -28,4 +28,4 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/angular-frontend:latest
       - name: Lancer la commande docker compose
-        run: docker-compose up -d 
+        run: docker compose up -d 
