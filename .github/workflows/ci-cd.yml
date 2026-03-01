@@ -4,28 +4,32 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Récupération du code
         uses: actions/checkout@v4
-      - name: Connection a Docker Hub
-        uses: docker/login-action@v3
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Builder l’image Docker du backend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./springboot/app
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/springboot-backend:latest
-      - name: Builder l’image Docker du frontend
-        uses: docker/build-push-action@v5
-        with:
-          context: ./angular-app
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/angular-frontend:latest
-      - name: Lancer la commande docker compose
-        run: docker compose up -d 
+          distribution: temurin
+          java-version: 17
+
+      - name: Builder le JAR Spring Boot
+        working-directory: ./springboot/app
+        run: mvn clean package -DskipTests
+
+      - name: Builder l’image Docker du backend (local)
+        run: docker build -t nouran10/springboot-app ./springboot/app
+
+      - name: Builder l’image Docker du frontend (local)
+        run: docker build -t nouran10/angular-app ./angular-app
+
+      - name: Lancer docker compose
+        run: |
+          docker compose up -d
+          docker ps
